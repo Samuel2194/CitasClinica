@@ -1,17 +1,66 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Main {
-    public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+    public static BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
+    static String opcion="";
+    public static void main(String[] args) throws IOException {
+        System.out.println("¡Bienvenido!\n¿Deseas ingresar como administrador?\n 1) Si\n 2) No\n 3) Salir");
+        opcion = scanner.readLine();
+        switch(opcion.toUpperCase()) {
+            case "1": {
+                MenuAdmin();
+                break;
+            }
+            case "2": {
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
-
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+                MenuUsuario();
+                break;
+            }
+            case "3": {
+                System.out.println("Adios");
+                break;
+            }
+            default: {
+                System.out.println("Opcion invalida");
+                break;
+            }
         }
+    }
+
+    public static void MenuAdmin() throws IOException {
+
+        System.out.println("¿Que deseas hacer?\n 1) Alta Doctores\n 2) Alta Pacientes\n 3) Eliminar Contacto\n 4) Salir");
+        opcion = scanner.readLine();
+        switch(opcion.toUpperCase()) {
+            case "1": {
+                MenuAdmin();
+                break;
+            }
+            case "2": {
+
+                MenuAdmin();
+                break;
+            }
+            case "3": {
+
+                MenuAdmin();
+                break;
+            }
+            case "4": {
+                System.out.println("Adios");
+                break;
+            }
+            default: {
+                System.out.println("Opcion invalida");
+                MenuAdmin();
+                break;
+            }
+        }
+    }
+
+    public static void MenuUsuario(){
+
     }
 }
