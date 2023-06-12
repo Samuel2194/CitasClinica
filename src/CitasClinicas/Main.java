@@ -7,9 +7,11 @@ import java.io.InputStreamReader;
 public class Main {
     public static BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
     static Admin admin= new Admin();
+    static  Doctor doctor = new Doctor();
     static String opcion="";
     public static void main(String[] args) throws IOException {
         admin.Load();
+        doctor.Load();
         if (admin.CountAdmin()==0){
             StartConfig();
         }
@@ -52,10 +54,46 @@ public class Main {
     }
     public static void MenuAdmin() throws IOException {
 
+
         System.out.println("¿Que deseas hacer?\n 1) Alta Usuarios\n 2) Asignar Doctor\n 3) Salir");
         opcion = scanner.readLine();
         switch(opcion.toUpperCase()) {
             case "1": {
+                MenuManagementUsers();
+                MenuAdmin();
+                break;
+            }
+            case "2": {
+
+                MenuAdmin();
+                break;
+            }
+            case "3": {
+                break;
+            }
+            default: {
+                System.out.println("Opcion invalida");
+                MenuAdmin();
+                break;
+            }
+        }
+    }
+    public static void MenuManagementUsers() throws IOException {
+        String nombre="", especialidad="";
+
+        System.out.println("¿Que tipo de usuario quieres agregar?\n 1) Doctor\n 2) Paciente\n 3) Administrador\n 4) Salir");
+        opcion = scanner.readLine();
+        switch(opcion.toUpperCase()) {
+            case "1": {
+                System.out.println("Ingresa el nombre del doctor");
+                nombre = scanner.readLine();
+                System.out.println("Ingresa la especialidad del doctor");
+                especialidad = scanner.readLine();
+                if (!nombre.equals("") && !especialidad.equals("")){
+                    System.out.println(doctor.NewDoc(nombre,especialidad));
+                }else{
+                    System.out.println("Debes de llenar todos los campos");
+                }
                 MenuAdmin();
                 break;
             }
@@ -70,21 +108,19 @@ public class Main {
                 break;
             }
             case "4": {
-                System.out.println("Adios");
+
+                MenuAdmin();
                 break;
             }
             default: {
                 System.out.println("Opcion invalida");
-                MenuAdmin();
-                break;
+                MenuManagementUsers();
             }
         }
     }
-
     public static void MenuUsuario(){
 
     }
-
     public static boolean StartConfig() throws IOException {
         boolean result=false;
         String nombre, pass, repPass;
@@ -104,7 +140,6 @@ public class Main {
 
         return result;
     }
-
     public static boolean Login() throws IOException {
         boolean result=false;
         String nombre, pass;
