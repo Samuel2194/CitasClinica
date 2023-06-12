@@ -61,4 +61,20 @@ public class Admin {
     public int CountAdmin(){
         return administradores.size();
     }
+
+    public boolean ValidUser(String usuario, String pass){
+        boolean resul= false;
+
+        try {
+            for (String i : administradores.keySet()) {
+                if (i.equals(usuario) && administradores.get(i).equals(pass)){
+                    resul = true;
+                    break;
+                }
+            }
+        }catch (Exception e){
+        }
+
+        return resul;
+    }
 }
