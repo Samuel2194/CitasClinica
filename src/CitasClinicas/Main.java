@@ -8,10 +8,12 @@ public class Main {
     public static BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
     static Admin admin= new Admin();
     static  Doctor doctor = new Doctor();
+    static Paciente paciente = new Paciente();
     static String opcion="";
     public static void main(String[] args) throws IOException {
         admin.Load();
         doctor.Load();
+        paciente.Load();
         if (admin.CountAdmin()==0){
             StartConfig();
         }
@@ -33,14 +35,13 @@ public class Main {
                 break;
             }
             case "2": {
-
                 MenuUsuario();
                 MenuPrincipal();
 
                 break;
             }
             case "3": {
-                MenuPrincipal();
+                System.out.println("Adios");
 
                 break;
             }
@@ -79,8 +80,8 @@ public class Main {
         }
     }
     public static void MenuManagementUsers() throws IOException {
-        String nombre="", especialidad="";
-
+        String nombre="", especialidad="", idPaciente;
+        int countPacientes;
         System.out.println("¿Que tipo de usuario quieres agregar?\n 1) Doctor\n 2) Paciente\n 3) Administrador\n 4) Salir");
         opcion = scanner.readLine();
         switch(opcion.toUpperCase()) {
@@ -98,7 +99,12 @@ public class Main {
                 break;
             }
             case "2": {
-
+                System.out.println("Ingresa el nombre del paciente");
+                nombre = scanner.readLine();
+                countPacientes = paciente.CountPacientes()+1;
+                idPaciente = nombre + String.format("%02d", countPacientes);
+                System.out.println(paciente.NewPaciente(idPaciente,nombre));
+                System.out.println("El codigo de identificacion del paciente es: " + idPaciente);
                 MenuAdmin();
                 break;
             }

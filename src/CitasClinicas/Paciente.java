@@ -7,12 +7,12 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Doctor {
+public class Paciente {
     public BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
-    File fileDoct = new File(".\\src\\CitasClinicas\\db\\Doctores.csv");
-    HashMap<String, String> doctores;
-    public Doctor(){
-        doctores = new HashMap<String, String>();
+    File filePaciente = new File(".\\src\\CitasClinicas\\db\\Pacientes.csv");
+    HashMap<String, String> pacientes;
+    public Paciente(){
+        pacientes = new HashMap<String, String>();
     }
 
     public boolean Load(){
@@ -27,16 +27,16 @@ public class Doctor {
             }
         }
         try {
-            fileDoct.createNewFile();
+            filePaciente.createNewFile();
         } catch (IOException e) {
         }
         try {
-            Scanner sc = new Scanner(fileDoct);
+            Scanner sc = new Scanner(filePaciente);
             sc.useDelimiter(",");
             while (sc.hasNextLine())
             {
                 administrador= sc.nextLine().split(",");
-                NewDoc(administrador[0],administrador[1]);
+                NewPaciente(administrador[0],administrador[1]);
             }
             sc.close();
             result = true;
@@ -46,19 +46,19 @@ public class Doctor {
         return result;
     }
 
-    public String NewDoc(String nombre, String especialidad) {
+    public String NewPaciente(String id, String nombre) {
         String result="";
         try {
-            doctores.put(nombre,especialidad);
-            result= "El doctor se ha agregado";
+            pacientes.put(id,nombre);
+            result= "El paciente se ha agregado";
         }catch (Exception e){
-            result ="Ocurrio un problema al crear el doctor";
+            result ="Ocurrio un problema al crear el paciente";
         }
 
         return result;
     }
 
-    public int CountDoctores(){
-        return doctores.size();
+    public int CountPacientes(){
+        return pacientes.size();
     }
 }
