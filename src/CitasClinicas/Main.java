@@ -3,17 +3,20 @@ package CitasClinicas;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Main {
     public static BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
     static Admin admin= new Admin();
     static  Doctor doctor = new Doctor();
     static Paciente paciente = new Paciente();
+    static Cita cita =new Cita();
     static String opcion="";
     public static void main(String[] args) throws IOException {
         admin.Load();
         doctor.Load();
         paciente.Load();
+        cita.Load();
         if (admin.CountAdmin()==0){
             StartConfig();
         }
@@ -54,8 +57,6 @@ public class Main {
         }
     }
     public static void MenuAdmin() throws IOException {
-
-
         System.out.println("¿Que deseas hacer?\n 1) Alta Usuarios\n 2) Asignar Doctor\n 3) Salir");
         opcion = scanner.readLine();
         switch(opcion.toUpperCase()) {
@@ -134,8 +135,50 @@ public class Main {
             }
         }
     }
-    public static void MenuUsuario(){
+    public static void MenuUsuario() throws IOException {
+        int idEspecialidad;
+        String[] usuarioCita = new String[4];
+        ArrayList<String> especialidades = new ArrayList<>();
 
+        System.out.println("¿Que deseas hacer?\n 1) Nueva cita\n 2) Salir");
+        opcion = scanner.readLine();
+        switch(opcion.toUpperCase()) {
+            case "1": {
+                System.out.println("Ingresa el codigo del paciente");
+                usuarioCita[0] = scanner.readLine();
+                if (paciente.ValidPaciente(usuarioCita[0])){
+                    especialidades= doctor.VerEspecialidades();
+                    System.out.println("Selecciona la especialidad");
+                    for (int i=0; i< especialidades.size();i++) {
+                        System.out.println(i +") "+ especialidades.get(i));
+                    }
+                    try {
+                        idEspecialidad = Integer.parseInt(scanner.readLine());
+                        usuarioCita[1] =especialidades.get(idEspecialidad);
+                    }catch (Exception e ){
+                        System.out.println("Opcion invalida");
+                        break;
+                    }
+                    System.out.println("Ingresa la fecha y hora de la cita (yyyy-mm-dd hh)");
+                    usuarioCita[2] = scanner.readLine();
+                    System.out.println("¿Cual es el motivo de la cita?");
+                    usuarioCita[3] = scanner.readLine();
+                    System.out.println(cita.NewCita(usuarioCita));
+                }else{
+                    System.out.println("Paciente no encontrado");
+                }
+                MenuUsuario();
+                break;
+            }
+            case "2": {
+                break;
+            }
+            default: {
+                System.out.println("Opcion invalida");
+                MenuUsuario();
+                break;
+            }
+        }
     }
     public static boolean StartConfig() throws IOException {
         boolean result=false;

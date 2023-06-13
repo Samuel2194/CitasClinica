@@ -18,7 +18,7 @@ public class Paciente {
     public boolean Load(){
         boolean result =false;
         File path = new File(".\\src\\CitasClinicas\\db");
-        String[] administrador;
+        String[] paciente;
         if (!path.exists()) {
             if (path.mkdirs()) {
                 System.out.println("Directorio creado");
@@ -35,8 +35,8 @@ public class Paciente {
             sc.useDelimiter(",");
             while (sc.hasNextLine())
             {
-                administrador= sc.nextLine().split(",");
-                NewPaciente(administrador[0],administrador[1]);
+                paciente= sc.nextLine().split(",");
+                NewPaciente(paciente[0],paciente[1]);
             }
             sc.close();
             result = true;
@@ -60,5 +60,21 @@ public class Paciente {
 
     public int CountPacientes(){
         return pacientes.size();
+    }
+
+    public boolean ValidPaciente(String idPaciente){
+        boolean resul= false;
+
+        try {
+            for (String i : pacientes.keySet()) {
+                if (i.equals(idPaciente)){
+                    resul = true;
+                    break;
+                }
+            }
+        }catch (Exception e){
+        }
+
+        return resul;
     }
 }

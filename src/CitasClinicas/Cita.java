@@ -4,22 +4,23 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.ArrayList;
 
-public class Doctor {
+public class Cita {
     public BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
-    File fileDoct = new File(".\\src\\CitasClinicas\\db\\Doctores.csv");
-    HashMap<String, String> doctores;
-    public Doctor(){
-        doctores = new HashMap<String, String>();
+    File fileCita = new File(".\\src\\CitasClinicas\\db\\Citas.csv");
+    ArrayList<String[]> citas;
+    public Cita(){
+        citas = new ArrayList<>();
     }
 
     public boolean Load(){
         boolean result =false;
         File path = new File(".\\src\\CitasClinicas\\db");
-        String[] doctor;
+        String[] cita;
         if (!path.exists()) {
             if (path.mkdirs()) {
                 System.out.println("Directorio creado");
@@ -28,16 +29,16 @@ public class Doctor {
             }
         }
         try {
-            fileDoct.createNewFile();
+            fileCita.createNewFile();
         } catch (IOException e) {
         }
         try {
-            Scanner sc = new Scanner(fileDoct);
+            Scanner sc = new Scanner(fileCita);
             sc.useDelimiter(",");
             while (sc.hasNextLine())
             {
-                doctor= sc.nextLine().split(",");
-                NewDoc(doctor[0],doctor[1]);
+                cita= sc.nextLine().split(",");
+                NewCita(cita);
             }
             sc.close();
             result = true;
@@ -47,31 +48,15 @@ public class Doctor {
         return result;
     }
 
-    public String NewDoc(String nombre, String especialidad) {
+    public String NewCita(String[] cita) {
         String result="";
         try {
-            doctores.put(nombre,especialidad);
-            result= "El doctor se ha agregado";
+            citas.add(cita);
+            result= "La cita se ha agregado";
         }catch (Exception e){
-            result ="Ocurrio un problema al crear el doctor";
+            result ="Ocurrio un problema al crear la cita";
         }
 
         return result;
-    }
-
-    public int CountDoctores(){
-        return doctores.size();
-    }
-
-    public ArrayList<String> VerEspecialidades(){
-        ArrayList<String> especialidades = new ArrayList<>();
-
-        for (String i : doctores.keySet()) {
-            if (!especialidades.contains(doctores.get(i))){
-                especialidades.add(doctores.get(i));
-            }
-        }
-
-        return especialidades;
     }
 }
