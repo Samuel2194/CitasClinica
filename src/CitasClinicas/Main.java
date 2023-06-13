@@ -80,7 +80,7 @@ public class Main {
         }
     }
     public static void MenuManagementUsers() throws IOException {
-        String nombre="", especialidad="", idPaciente;
+        String nombre="", especialidad="", idPaciente,pass,repPass;
         int countPacientes;
         System.out.println("¿Que tipo de usuario quieres agregar?\n 1) Doctor\n 2) Paciente\n 3) Administrador\n 4) Salir");
         opcion = scanner.readLine();
@@ -109,7 +109,17 @@ public class Main {
                 break;
             }
             case "3": {
-
+                System.out.println("Ingresa el nombre del Administrador");
+                nombre = scanner.readLine();
+                System.out.println("Ingresa la contraseña");
+                pass = scanner.readLine();
+                System.out.println("Repite la contraseña");
+                repPass = scanner.readLine();
+                if (pass.equals(repPass)){
+                    System.out.println (admin.NewAdmin(nombre, pass));
+                }else {
+                    System.out.println("Datos incorrectos");
+                }
                 MenuAdmin();
                 break;
             }
