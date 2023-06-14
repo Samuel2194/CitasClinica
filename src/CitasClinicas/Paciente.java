@@ -77,4 +77,19 @@ public class Paciente {
 
         return resul;
     }
+
+    public  String NombrePaciente(String idPaciente) {
+        String paciente="";
+        try {
+            for (String i : pacientes.keySet()) {
+                if (i.equals(idPaciente)){
+                    paciente = pacientes.get(i);
+                    break;
+                }
+            }
+        }catch (Exception e){
+        }
+
+        return paciente;
+    }
 }

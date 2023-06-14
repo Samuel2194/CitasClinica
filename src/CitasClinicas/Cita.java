@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.util.HashMap;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -57,6 +55,43 @@ public class Cita {
             result ="Ocurrio un problema al crear la cita";
         }
 
+        return result;
+    }
+
+    public String AgregarDoctor(int idCita, String doctor){
+        String result="";
+        String[] usuarioCita, nuevoUsuarioCita = new String[5];
+        try {
+            usuarioCita = citas.get(idCita);
+            nuevoUsuarioCita[0]=usuarioCita[0];
+            nuevoUsuarioCita[1]=usuarioCita[1];
+            nuevoUsuarioCita[2]=usuarioCita[2];
+            nuevoUsuarioCita[3]=usuarioCita[3];
+            nuevoUsuarioCita[4] = doctor;
+            citas.set(idCita,nuevoUsuarioCita);
+            result ="Se agrego el doctor a la cita";
+        }catch (Exception e){
+            result="Ocurrio un problema al agregar el doctor a la cita";
+        }
+        return result;
+    }
+
+    public ArrayList<String> CitasSinDoctor(){
+        ArrayList<String> newUserCita = new ArrayList<>();
+        String[]userCita;
+        ArrayList<String> result=null;
+        for (int i=0;i <citas.size();i++){
+           if(citas.get(i).length==4){
+               userCita=citas.get(i);
+               newUserCita.add(Integer.toString(i));
+               newUserCita.add(userCita[0]);
+               newUserCita.add(userCita[1]);
+               newUserCita.add(userCita[2]);
+               newUserCita.add(userCita[3]);
+               result =newUserCita;
+               break;
+           }
+        }
         return result;
     }
 }

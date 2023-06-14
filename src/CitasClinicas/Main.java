@@ -57,6 +57,10 @@ public class Main {
         }
     }
     public static void MenuAdmin() throws IOException {
+        ArrayList<String> usuarioCita;
+        String[] userCita;
+        ArrayList<String> doctores;
+        int doc;
         System.out.println("¿Que deseas hacer?\n 1) Alta Usuarios\n 2) Asignar Doctor\n 3) Salir");
         opcion = scanner.readLine();
         switch(opcion.toUpperCase()) {
@@ -66,7 +70,25 @@ public class Main {
                 break;
             }
             case "2": {
-
+                usuarioCita=cita.CitasSinDoctor();
+                System.out.println(usuarioCita.toString());
+                while ( usuarioCita!=null){
+                    System.out.println(usuarioCita.get(1));
+                     System.out.println("Paciente: " + usuarioCita.get(1) +  " Especialidad: " + usuarioCita.get(2) + " Fecha: " + usuarioCita.get(3) + " Comentarios: "+ usuarioCita.get(4) + "\n Selecciona el doctor que quieras que atienda el paciente: ");
+                    doctores= doctor.VerDoctoresEspecialidad(usuarioCita.get(2));
+                    for (int i=0; i< doctores.size();i++) {
+                        System.out.println(i +") "+ doctores.get(i));
+                    }
+                    try {
+                        doc = Integer.parseInt(scanner.readLine());
+                        String c = doctores.get(doc);
+                        cita.AgregarDoctor(Integer.parseInt(usuarioCita.get(0)),doctores.get(doc));
+                    }catch (Exception e){
+                        System.out.println("Opcion invalida");
+                    }
+                    usuarioCita=cita.CitasSinDoctor();
+                }
+                System.out.println("No hay mas citas para asignar doctores");
                 MenuAdmin();
                 break;
             }
@@ -138,15 +160,17 @@ public class Main {
     public static void MenuUsuario() throws IOException {
         int idEspecialidad;
         String[] usuarioCita = new String[4];
-        ArrayList<String> especialidades = new ArrayList<>();
+        ArrayList<String> especialidades;
+        String idPaciente;
 
         System.out.println("¿Que deseas hacer?\n 1) Nueva cita\n 2) Salir");
         opcion = scanner.readLine();
         switch(opcion.toUpperCase()) {
             case "1": {
                 System.out.println("Ingresa el codigo del paciente");
-                usuarioCita[0] = scanner.readLine();
-                if (paciente.ValidPaciente(usuarioCita[0])){
+                idPaciente = scanner.readLine();
+                if (paciente.ValidPaciente(idPaciente)){
+                    usuarioCita[0] = paciente.NombrePaciente(idPaciente);
                     especialidades= doctor.VerEspecialidades();
                     System.out.println("Selecciona la especialidad");
                     for (int i=0; i< especialidades.size();i++) {

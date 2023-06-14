@@ -74,4 +74,16 @@ public class Doctor {
 
         return especialidades;
     }
+
+    public ArrayList<String> VerDoctoresEspecialidad(String especialidad){
+        ArrayList<String> dctoresEspecialidad = new ArrayList<>();
+
+        for (String i : doctores.keySet()) {
+            if (doctores.get(i).contains(especialidad)){
+                dctoresEspecialidad.add(i);
+            }
+        }
+
+        return dctoresEspecialidad;
+    }
 }
