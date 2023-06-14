@@ -1,9 +1,7 @@
 package CitasClinicas;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -92,6 +90,45 @@ public class Cita {
                break;
            }
         }
+        return result;
+    }
+
+    public  String Save(){
+        String result="";
+        String eol = System.getProperty("line.separator");
+        String[] cita;
+        try {
+            Writer writer = new FileWriter(fileCita);
+            for (int i=0; i<citas.size();i++) {
+                cita = citas.get(i);
+                if(cita.length==5){
+                    writer.append(cita[0])
+                            .append(',')
+                            .append(cita[1])
+                            .append(',')
+                            .append(cita[2])
+                            .append(',')
+                            .append(cita[3])
+                            .append(',')
+                            .append(cita[4])
+                            .append(eol);
+                }else{
+                    writer.append(cita[0])
+                            .append(',')
+                            .append(cita[1])
+                            .append(',')
+                            .append(cita[2])
+                            .append(',')
+                            .append(cita[3])
+                            .append(eol);
+                }
+            }
+            writer.close();
+            result= "Se han guardado los cambios";
+        }catch (Exception e){
+            result ="Ocurrio un problema al guardar los cambios";
+        }
+
         return result;
     }
 }

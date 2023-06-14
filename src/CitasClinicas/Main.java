@@ -12,6 +12,7 @@ public class Main {
     static Paciente paciente = new Paciente();
     static Cita cita =new Cita();
     static String opcion="";
+
     public static void main(String[] args) throws IOException {
         admin.Load();
         doctor.Load();
@@ -44,6 +45,10 @@ public class Main {
                 break;
             }
             case "3": {
+                admin.Save();
+                paciente.Save();
+                doctor.Save();
+                cita.Save();
                 System.out.println("Adios");
 
                 break;
@@ -56,6 +61,7 @@ public class Main {
             }
         }
     }
+
     public static void MenuAdmin() throws IOException {
         ArrayList<String> usuarioCita;
         String[] userCita;
@@ -71,9 +77,7 @@ public class Main {
             }
             case "2": {
                 usuarioCita=cita.CitasSinDoctor();
-                System.out.println(usuarioCita.toString());
                 while ( usuarioCita!=null){
-                    System.out.println(usuarioCita.get(1));
                      System.out.println("Paciente: " + usuarioCita.get(1) +  " Especialidad: " + usuarioCita.get(2) + " Fecha: " + usuarioCita.get(3) + " Comentarios: "+ usuarioCita.get(4) + "\n Selecciona el doctor que quieras que atienda el paciente: ");
                     doctores= doctor.VerDoctoresEspecialidad(usuarioCita.get(2));
                     for (int i=0; i< doctores.size();i++) {
@@ -89,6 +93,7 @@ public class Main {
                     usuarioCita=cita.CitasSinDoctor();
                 }
                 System.out.println("No hay mas citas para asignar doctores");
+                cita.Save();
                 MenuAdmin();
                 break;
             }
@@ -102,6 +107,7 @@ public class Main {
             }
         }
     }
+
     public static void MenuManagementUsers() throws IOException {
         String nombre="", especialidad="", idPaciente,pass,repPass;
         int countPacientes;
@@ -118,6 +124,7 @@ public class Main {
                 }else{
                     System.out.println("Debes de llenar todos los campos");
                 }
+                doctor.Save();
                 MenuAdmin();
                 break;
             }
@@ -128,6 +135,7 @@ public class Main {
                 idPaciente = nombre + String.format("%02d", countPacientes);
                 System.out.println(paciente.NewPaciente(idPaciente,nombre));
                 System.out.println("El codigo de identificacion del paciente es: " + idPaciente);
+                paciente.Save();
                 MenuAdmin();
                 break;
             }
@@ -143,6 +151,7 @@ public class Main {
                 }else {
                     System.out.println("Datos incorrectos");
                 }
+                admin.Save();
                 MenuAdmin();
                 break;
             }
@@ -157,6 +166,7 @@ public class Main {
             }
         }
     }
+
     public static void MenuUsuario() throws IOException {
         int idEspecialidad;
         String[] usuarioCita = new String[4];
@@ -191,6 +201,7 @@ public class Main {
                 }else{
                     System.out.println("Paciente no encontrado");
                 }
+                cita.Save();
                 MenuUsuario();
                 break;
             }
@@ -204,6 +215,7 @@ public class Main {
             }
         }
     }
+
     public static boolean StartConfig() throws IOException {
         boolean result=false;
         String nombre, pass, repPass;
@@ -223,6 +235,7 @@ public class Main {
 
         return result;
     }
+
     public static boolean Login() throws IOException {
         boolean result=false;
         String nombre, pass;

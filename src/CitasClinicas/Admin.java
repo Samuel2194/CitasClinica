@@ -1,10 +1,8 @@
 package CitasClinicas;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Admin {
@@ -76,5 +74,25 @@ public class Admin {
         }
 
         return resul;
+    }
+
+    public  String Save(){
+        String result="";
+        String eol = System.getProperty("line.separator");
+        try {
+            Writer writer = new FileWriter(fileAdmin);
+            for (Map.Entry<String, String> entry : administradores.entrySet()) {
+                writer.append(entry.getKey())
+                        .append(',')
+                        .append(entry.getValue())
+                        .append(eol);
+            }
+            writer.close();
+            result= "Se han guardado los cambios";
+        }catch (Exception e){
+            result ="Ocurrio un problema al guardar los cambios";
+        }
+
+        return result;
     }
 }

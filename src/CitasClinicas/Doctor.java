@@ -1,11 +1,9 @@
 package CitasClinicas;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Doctor {
@@ -59,10 +57,6 @@ public class Doctor {
         return result;
     }
 
-    public int CountDoctores(){
-        return doctores.size();
-    }
-
     public ArrayList<String> VerEspecialidades(){
         ArrayList<String> especialidades = new ArrayList<>();
 
@@ -85,5 +79,25 @@ public class Doctor {
         }
 
         return dctoresEspecialidad;
+    }
+
+    public  String Save(){
+        String result="";
+        String eol = System.getProperty("line.separator");
+        try {
+            Writer writer = new FileWriter(fileDoct);
+            for (Map.Entry<String, String> entry : doctores.entrySet()) {
+                writer.append(entry.getKey())
+                        .append(',')
+                        .append(entry.getValue())
+                        .append(eol);
+            }
+            writer.close();
+            result= "Se han guardado los cambios";
+        }catch (Exception e){
+            result ="Ocurrio un problema al guardar los cambios";
+        }
+
+        return result;
     }
 }
